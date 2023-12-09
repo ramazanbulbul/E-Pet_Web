@@ -1,0 +1,88 @@
+﻿
+@using EPetProject.DTO.Treatment
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <ol class="breadcrumb">
+        <li><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper" /></svg></li>
+        <li class="active">İşlemler</li>
+    </ol>
+</div><!--/.row-->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Tables</h1>
+    </div>
+</div><!--/.row-->
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Advanced Table</div>
+            <div class="panel-body">
+                <table data-toggle="table" data-url="tables/data1.json" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                    <thead>
+                        <tr>
+                            <th data-field="id">ID</th>
+                            <th data-field="PetId" data-sortable="true">Hayvanın Id</th>
+                            <th data-field="PetName" data-sortable="true">Hayvanın Adı</th>
+                            <th data-field="clinicName" data-sortable="true">Klinik Adı</th>
+                            <th data-field="name" data-sortable="true">İşlem Başlığı</th>
+                            <th data-field="descr" data-sortable="true">İşlem Açıklması</th>
+                            <th data-field="date" data-sortable="true">Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (TreatmentDTO treatment in ViewBag.Treatments)
+                        {
+                        <tr>
+                            <td>@treatment.Id</td>
+                            <td>@treatment.Pet.Id</td>
+                            <td>@treatment.Pet.Name </td>
+                            <td>@treatment.Clinic.ClinicName </td>
+                            <td>@treatment.Title </td>
+                            <td>@treatment.Description</td>
+                            <td>@treatment.DateTime.ToString()</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('#hover, #striped, #condensed').click(function () {
+                var classes = 'table';
+
+                if ($('#hover').prop('checked')) {
+                    classes += ' table-hover';
+                }
+                if ($('#condensed').prop('checked')) {
+                    classes += ' table-condensed';
+                }
+                $('#table-style').bootstrapTable('destroy')
+                    .bootstrapTable({
+                        classes: classes,
+                        striped: $('#striped').prop('checked')
+                    });
+            });
+        });
+
+        function rowStyle(row, index) {
+            var classes = ['active', 'success', 'info', 'warning', 'danger'];
+
+            if (index % 2 === 0 && index / 2 < classes.length) {
+                return {
+                    classes: classes[index / 2]
+                };
+            }
+            return {};
+        }</script>
+</div><!--/.row-->
+<script src="~/Content/js/jquery-1.11.1.min.js"></script>
+<script src="~/Content/js/bootstrap-table.js"></script>

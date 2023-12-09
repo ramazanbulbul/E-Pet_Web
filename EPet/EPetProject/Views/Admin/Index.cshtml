@@ -1,0 +1,86 @@
+﻿
+@using EPetProject.DomainObjects
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <ol class="breadcrumb">
+        <li><a href="#"><svg class="glyph stroked home"><use xlink:href="#stroked-home"></use></svg></a></li>
+        <li class="active">Admin</li>
+    </ol>
+</div><!--/.row-->
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Klinikler</h1>
+    </div>
+</div><!--/.row-->
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Klinik Listesi</div>
+            <div class="panel-body">
+                <table data-toggle="table" data-url="tables/data1.json" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="name" data-sort-order="desc">
+                    <thead>
+                        <tr>
+                            <th data-sortable="true">Klinik ID</th>
+                            <th data-sortable="true">Klinik Adı</th>
+                            <th data-sortable="true">Klinik Email</th>
+                            <th data-sortable="true">Klinik Adresi</th>
+                            <th data-sortable="true">Klinik Onay</th>
+                            <th>İşlemler</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (clinic clinic in ViewBag.Clinics)
+                        {
+                        <tr>
+                            <td>@clinic.Id</td>
+                            <td>@clinic.ClinicName</td>
+                            <td>@clinic.Email</td>
+                            <td>@clinic.Adress</td>
+                            @if (clinic.Verify == 2)
+                            {
+                                <td>Admin</td>
+                            }else if(clinic.Verify == 1)
+                            {
+                                <td>Onaylanmış</td>
+                            }
+                            else
+                            {
+                                <td>Onay Bekliyor</td>
+                            }
+                        <td>
+                            @if (clinic.Verify != 2)
+                            {
+                                if (clinic.Verify != 1)
+                                {
+                                    <a href="/Admin/SetVerify?id=@clinic.Id">Onayla</a><br />
+                                }
+                                else
+                                {
+                                    <a href="/Admin/SetVerify?id=@clinic.Id">Onay kaldır</a><br />
+                                }
+                                <a href="/Admin/Delete?id=@clinic.Id">Sil</a>
+                            }
+                            else
+                            {
+                                <a>Admin</a>
+                            }
+
+                        </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+   
+</div><!--/.row-->
+<script src="~/Content/js/jquery-1.11.1.min.js"></script>
+<script src="~/Content/js/bootstrap-table.js"></script>

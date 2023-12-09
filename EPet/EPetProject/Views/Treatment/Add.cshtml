@@ -1,0 +1,57 @@
+﻿@model EPetProject.DTO.Treatment.TreatmentAddRequest
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <ol class="breadcrumb">
+        <li><svg class="glyph stroked clipboard with paper"><use xlink:href="#stroked-clipboard-with-paper" /></svg></li>
+        <li class="active">İşlemler</li>
+    </ol>
+</div><!--/.row-->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">İşlem Ekle</div>
+            <div class="panel-body">
+
+                @using (Html.BeginForm("AddCheck", "Treatment", FormMethod.Post))
+                {
+                    <p class="login-box-msg">
+                        <strong>
+                            @if (TempData["Message"] != null)
+                            {
+
+                                <span class="text-danger">@TempData["Message"]</span>
+
+                            }
+                            else
+                            {
+                                <span>Boş alanları doldurarak işlem kaydı oluşturabilirsiniz</span>
+                            }
+                        </strong>
+                    </p>
+
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Hayvan Id</label>
+                            @Html.TextBoxFor(p => p.PetId , new { @class = "form-control", @placeholder = "İşlem yapılan hayvanın Id'sini giriniz!" })
+                        </div>
+                        <div class="form-group">
+                            <label>İşlem Başlığı</label>
+                            @Html.TextBoxFor(p => p.Title, new { @class = "form-control", @placeholder = "Yapılan işlemin başlığını giriniz!" })
+                        </div>
+                        <div class="form-group">
+                            <label>İşlem Açıklması</label>
+                            @Html.TextAreaFor(p => p.Description, new { @class = "form-control", @placeholder = "Yapılan işlemin açıklamasını giriniz!" })
+                        </div>
+                        <button type="submit" class="btn btn-primary">İşlem Oluştur</button>
+                        <button type="reset" class="btn btn-default">Reset</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div><!-- /.col-->
+</div><!-- /.row -->

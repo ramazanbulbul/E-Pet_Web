@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Login/_LoginLayout.cshtml";
+}
+@model EPetProject.DTO.Login.RegisterClinicRequest
+<div class="panel-heading">Kayıt Ol</div>
+<div class="panel-body">
+    @using (Html.BeginForm("RegisterCheck", "Login", FormMethod.Post))
+    {
+        <p class="login-box-msg">
+            <strong>
+                @if (TempData["Message"] != null)
+                {
+
+                    <span class="text-danger">@TempData["Message"]</span>
+
+                }
+                else
+                {
+                    <span>Sisteme giriş yapmak için kayıt olun</span>
+                }
+            </strong>
+        </p>
+
+        <fieldset>
+            <div class="form-group">
+                @Html.TextBoxFor(p => p.ClinicName, new { @class = "form-control", @placeholder = "Klinik Adı" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(p => p.Email, new { @class = "form-control", @type = "email", @placeholder = "E-Posta" })
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(p => p.Password, new { @class = "form-control", @placeholder = "Şifre" })
+            </div>
+            <div class="form-group">
+                @Html.PasswordFor(p => p.CheckPassword, new { @class = "form-control", @placeholder = "Şifreyi Doğrula" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(p => p.Adress, new { @class = "form-control", @placeholder = "Adres" })
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Kayıt Ol</button>
+        </fieldset>
+    }
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+    {
+        <button type="submit" class="btn btn-block btn-flat">Hesabınız var mı? Giriş yapın!</button>
+    }
+</div>
